@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block extrahead %}
+table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+{% endblock %}
+{% block content %}
+        <h2>Patient Records</h2>
+        <table class="table">
+            <tr><th>Patient No.</th><th>First Name </th><th>Last Name</th>Date of Birth</th><th>Gender</th></tr>
+            <tbody>
+                <tr>
+                    <td>{{patient.patient_number}}</td>
+                    <td>{{patient.first_name}}</td>
+                    <td>{{patient.last_name}}</td>
+                    <td>{{patient.date_of_birth}}</td>
+                    <td>{{patient.gender}}</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <table class="table">
+        <tr>
+            
+            <th>Age </th>
+            <th>Height</th>
+            <th>Weight</th>
+            <th>Blood Group</th>
+            <th>Blood Pressure</th>
+            <th>BMI</th>
+            <th>Mother's Name</th>
+            <th>Mother's Contact</th>
+            <th>Father's Name</th>
+            <th>Father's Contact</th>
+            <th>Allergies</th>
+            <th>Vaccines Received</th>
+            <th>HIV/AIDS</th>
+            <th>Symptoms</th>
+            <th>Tests</th>
+            <th>Diagnosis</th>
+            <th>Hospital</th>
+            <th>Prescription</th>
+            <th>Progress Notes</th>
+            <th>Date&Time created</th>
+            <th>doctor's Name</th>
+     </tr>
+        {% for row in patient_records %}
+        <tr>
+        <td>{{row.age}}</td>
+        <td>{{row.height}}</td>
+        <td>{{row.weight}}</td>
+        <td>{{row.BG}}</td>
+        <td>{{row.BP}}</td>
+        <td>{{row.BMI}}</td>
+        <td>{{row.mother_name}}</td>
+        <td>{{row.mother_phone}}</td>
+        <td>{{row.father_name}}</td>
+        <td>{{row.father_phone}}</td>
+        <td>{{row.allergies}}</td>
+        <td>{{row.vaccines_received}}</td>
+        <td>{{row.hiv_status}}</td>
+        <td>{{row.symptoms}}</td>
+        <td>{{row.tests}}</td>
+        <td>{{row.diagnosis}}</td>
+        <td>{{row.hospital}}</td>
+        <td>{{row.prescription}}</td>
+        <td>{{row.progress_notes}}</td>
+        <td>{{row.created_at}}</td>
+        <td>{{row.author.get_full_name}}</td>
+        </tr>
+        {% endfor %}    
+        </table>
+        <p><a href="{% url 'add_patient_record' patient.patient_number %}">Add another patient record</a></p>
+        <p><a href="{% url 'list_patients' %}">Patient List</a></p>
+{% endblock %}

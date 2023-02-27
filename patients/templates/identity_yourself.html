@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head> <h1>Welcome to the EHR Platform!</h1>
+        <style>
+            h1{
+
+            color:yellow;
+            font-size:20px;
+            font-style:Vernada;
+            background-color:green;
+            }
+        </style>
+        <title>
+         Welcome page
+        </title>
+    </head>
+        <body>
+            <form action="" method="POST">
+          
+            
+            {% csrf_token %}
+
+            <p style="color:rgb(20, 9, 9)">Are you a doctor or a student? </p>  
+            <p style="color:rgb(20, 9, 9)">Click on who you are</p>
+            
+            <p><a href="{%url 'student_info' %}">Student</a></p>
+        
+            <p><a href="{%url 'doctor_info' %}">Doctor<</a>/a></p>
+            
+        <marquee>For all your patient record needs!</marquee>
+            </form>
+        </body>
+
+    
+</html>

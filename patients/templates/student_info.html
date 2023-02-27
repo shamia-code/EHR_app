@@ -1,0 +1,30 @@
+#displays yhe student form
+<!DOCTYPE html>
+<html>
+    <Head><h2>Enter your details please</h2></head>
+
+    <body>
+
+        
+        <!--Here i'm modifying the template to display the error message and the already entered data if a required field is missing-->
+        {% if error_message %} <h1>{{error_message}} </h1>{% endif %}
+        
+            <h2><a href="{% url 'logout' %}">Sign out</a></h2>
+            <form action="/view_patient" method="POST" novalidate>
+                <table>
+                    {{ form.as_table}}
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td> <input type="submit" value="submit"> </td>
+                    </tr>
+                </table>
+            {% csrf_token %}
+            </form>
+                
+        </body>
+        
+    -->
+    </form>
+
+    </body>
+</html>

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% for message in messages %}
+<div class="alert alert-info alert-dismissible fade show" role="alert">
+    {{message}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+{% endfor %}
+<form>
+
+<table class="table">
+    <tr><td>{{form.patient_number}}</td><td>{{form.first_name}}</td><td>{{form.last_name}}</td><td><button type="submit">Search</button></td><td><a href="{% url "list_patients" %}">Show All</a></a></td></tr>
+</table>
+</form>
+        <table class="table">
+            <head>
+                <tr>
+                    <th>Patient No</th>
+                    <th>First Name </th>
+                    <th>Last Name</th>
+                    
+                    <th>School</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th></th>
+                </tr>
+            </head>
+            <tbody>
+                {% for patient in patients %}
+                <tr>
+                    <td><a href="{% url 'view_patient' patient.patient_number %}">{{patient.patient_number}}</a></td>
+                    <td>{{patient.first_name}}</td>
+                    <td>{{patient.last_name}}</td>
+                    
+                    <td>{{patient.school}}</td>
+                    <td>{{patient.email}}</td>
+                    <td>{{patient.phone_number}}</td>
+                    <td>
+
+                        <a href="{% url 'edit_patient' patient.patient_number %}">Edit</a><br>
+                        <a href="{% url 'view_patient' patient.patient_number %}">View Patient Records</a>
+                    </td>
+                    
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr><td colspan="7"><a href="{% url 'add_patient' %}">Add another patient</a>
+
+                </td></tr>
+            </tfoot>
+        </table>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+        <!--<h1>Hi Dr.{{doctor|upper}} ,please Fill the form below </h1>-->
+        
+        <!--Here i'm modifying the template to display the error message and the already entered data if a required field is missing-->
+        {% if error_message %} <h1>{{error_message}} </h1>{% endif %}
+        
+        {% if submitted %}
+        <p class="success">
+        The patient data was submitted successfully.Thank you.</p>
+        
+        {% else %} 
+    
+            <form action="" method="POST" novalidate>
+                <table class="table">
+                    {{ form.as_table}}
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td> <input type="submit" value="submit"> </td>
+                    </tr>
+                </table>
+            {% csrf_token %}
+            </form>
+            {% endif %}
+                
+{% endblock %}
