@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
 
-from .forms import PatientForm, DoctorForm, PatientRecordForm,StudentForm ,PatientSearchForm
+from .forms import PatientForm, DoctorForm, PatientRecordForm,PatientSearchForm
 from .models import Patient, Doctor, PatientRecord
 from .utils import nicepass
 
@@ -38,7 +38,7 @@ def add_patient(request):
 
 @login_required
 def edit_patient(request, patient_number):
-    patient = get_object_or_404(patient_number=patient_number)
+    patient = get_object_or_404(Patient,patient_number=patient_number)
     if request.method == "POST":
         form = PatientRecordForm(request.POST, instance=patient)
         if form.is_valid():
