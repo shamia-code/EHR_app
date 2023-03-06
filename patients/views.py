@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 
 from .forms import PatientForm, DoctorForm, PatientRecordForm,PatientSearchForm
-from .models import Patient, Doctor, PatientRecord
+from .models import Patient, Doctor, PatientRecord,LisenceNumber
 from .utils import nicepass
 
 # If a view function has the @login_required decorator,and an unauthenticated user
@@ -100,11 +100,13 @@ def doctor_info(request):
         if form.is_valid():
             form.save()
             return redirect("list_patients")
+        else:
+            form = DoctorForm(instance=request.user.doctor)
+            return render(request, "doctor_info.html", {"form": form})
+
     else:
         form = DoctorForm(instance=request.user.doctor)
     return render(request, "doctor_info.html", {"form": form})
-
-
 
 
 def student_info(request):

@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth import login,authenticate,logout
 
 from .forms import LoginForm, RegisterForm
-from patients.models import Doctor
+from patients.models import Doctor,LisenceNumber
 
 def sign_in(request):
     if request.method=='POST':
@@ -33,16 +33,36 @@ def sign_out(request):
 def sign_up(request):
     if request.method=='POST':
         form=RegisterForm(request.POST)#creating an instance of the RegisterForm 
+        doctor=LisenceNumber.objects.all()
         if form.is_valid():
+            licence=form.cleaned_data['username']
+            if licence:
+                doctor=doctor.filter(licence_number__icontains=licence)
+            first_name=form.cleaned_data['first_name']
+            if first_name:
+                doctor=doctor.filter(first_name__icontains=first_name)
+            last_name=form.cleaned_data['last_name']
+            if last_name:
+                doctor=doctor.filter(last_name__icontains=last_name)
+                print("{} is a reqistered doctor, access ganted!" .format(doctor))
+                
+                return redirect("list_patients")
+        
+        else:
+            print("Not a registered doctor!")
+            form=RegisterForm()
+            return render(request,'register.html',{'form':form})
+            """
             user=form.save(commit=False)
             user.username=user.username.lower()
             user.save()
             Doctor.objects.create(
                 user=user,
-                licence_number=user.username
-            )
-            login(request,user)
-            return redirect('list_patients')
+                    licence_number=user.username
+                )
+                login(request,user)
+                return redirect('register.html')
+        """
     else:
         form=RegisterForm()
     return render(request,'register.html',{'form':form})

@@ -93,3 +93,11 @@ class PatientRecord(models.Model):
 
     def __str__(self):
         return f"{self.author}, {self.patient}"
+
+class LisenceNumber(models.Model):
+    first_name=models.CharField("First Name",max_length=100)
+    last_name=models.CharField("Last Name",max_length=100)
+    licence_number=models.CharField("Lisence Number",max_length=10)
+
+    def __str__(self):
+        return f"{self.first_name}, {self.last_name}, {self.licence_number}"
